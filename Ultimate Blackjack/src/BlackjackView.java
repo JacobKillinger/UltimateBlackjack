@@ -21,7 +21,7 @@ public class BlackjackView {
     private JLabel lblPlayerCard5;
     private JLabel lblPlayerScore;
     private JTextField txtFieldBet;
-    private JLabel lblBalence;
+    private JLabel lblBalance;
     private JLabel lblDealerScore;
     private JPanel mainPanel;
     private String cardPath;
@@ -34,15 +34,14 @@ public class BlackjackView {
 
     public BlackjackView() {
         BlackjackController gameController = new BlackjackController();
-        lblBalence.setText("$" + gameController.getBalance().toString());
+        lblBalance.setText("$" + gameController.getBalance().toString());
+        btnReset.setVisible(false);
 
         btnHit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ImageIcon icon = new ImageIcon();
                 pressed = true;
-
-
 
                 while(pressed == true){
                     btnHit.setEnabled(false);
@@ -142,6 +141,11 @@ public class BlackjackView {
         btnStay.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (counter != 0) {
+                    btnStay.setEnabled(false);
+                    btnHit.setEnabled(false);
+                    btnReset.setVisible(true);
+
+
                     ImageIcon dealersIcon = new ImageIcon();
                     cardPath = String.format("src/Playing Cards/card-%s.png", dealersHiddenCard);
                     dealersIcon = new ImageIcon(cardPath);
@@ -150,7 +154,7 @@ public class BlackjackView {
                     dealerScore = gameController.getScore(false);
                     counter = 0;
 
-                    while(dealerScore < 17)   //calls the hit function for dealer whenever the dealer score is less than 16 the code breaks here due to dealerscore being null at the moment
+                    while(dealerScore < 17)   //calls the hit function for dealer whenever the dealer score is less than 16
                     {
                         card = gameController.hit(false);
                         cardPath = String.format("src/Playing Cards/card-%s.png", card);
@@ -189,6 +193,12 @@ public class BlackjackView {
                     }
 
                     gameController.stay();
+
+                    int response = JOptionPane.showConfirmDialog(null, "Do you want to reset?", "Reset", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    if(response == JOptionPane.YES_OPTION)
+                    {
+                        btnReset.doClick();
+                    }
                 }
                 else
                 {
