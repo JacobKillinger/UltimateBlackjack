@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -33,12 +34,16 @@ public class BlackjackView {
 
     public BlackjackView() {
         BlackjackController gameController = new BlackjackController();
+        lblBalence.setText("$" + gameController.getBalance().toString());
 
         btnHit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ImageIcon icon = new ImageIcon();
                 pressed = true;
+
+
+
                 while(pressed == true){
                     btnHit.setEnabled(false);
                     if (counter == 0){
@@ -136,51 +141,71 @@ public class BlackjackView {
 
         btnStay.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ImageIcon dealersIcon = new ImageIcon();
-                cardPath = String.format("src/Playing Cards/card-%s.png", dealersHiddenCard);
-                dealersIcon = new ImageIcon(cardPath);
-                lblDealerCard1.setIcon(dealersIcon);
-                dealerScore = gameController.getScore(false);
-
-                while(dealerScore < 17)   //calls the hit function for dealer whenever the dealer score is less than 16 the code breaks here due to dealerscore being null at the moment
-                {
-                    card = gameController.hit(false);
-                    cardPath = String.format("src/Playing Cards/card-%s.png", card);
-                    dealerScore = gameController.getScore(false);
+                if (counter != 0) {
+                    ImageIcon dealersIcon = new ImageIcon();
+                    cardPath = String.format("src/Playing Cards/card-%s.png", dealersHiddenCard);
                     dealersIcon = new ImageIcon(cardPath);
+                    lblDealerCard1.setIcon(dealersIcon);
+
+                    dealerScore = gameController.getScore(false);
                     counter = 0;
 
-                    switch (counter) // Applies card images to labels
+                    while(dealerScore < 17)   //calls the hit function for dealer whenever the dealer score is less than 16 the code breaks here due to dealerscore being null at the moment
                     {
-                        case 0:
-                            lblDealerCard3.setIcon(dealersIcon);
-                            counter++;
-                            break;
+                        card = gameController.hit(false);
+                        cardPath = String.format("src/Playing Cards/card-%s.png", card);
+                        dealerScore = gameController.getScore(false);
+                        dealersIcon = new ImageIcon(cardPath);
 
-                        case 1:
-                            lblDealerCard4.setIcon(dealersIcon);
-                            counter++;
-                            break;
 
-                        case 2:
-                            lblDealerCard5.setIcon(dealersIcon);
-                            counter++;
-                            break;
+                        switch (counter) // Applies card images to labels
+                        {
+                            case 0:
+                                lblDealerCard3.setIcon(dealersIcon);
+                                counter++;
+                                break;
 
-                        default:
-                            counter = 0;
+                            case 1:
+                                lblDealerCard4.setIcon(dealersIcon);
+                                counter++;
+                                break;
+
+                            case 2:
+                                lblDealerCard5.setIcon(dealersIcon);
+                                counter++;
+                                break;
+
+                            default:
+                                counter = 0;
+                        }
                     }
-                }
 
-                if(dealerScore > 21){
-                    lblDealerScore.setText("Busted");
+                    if(dealerScore > 21){
+                        lblDealerScore.setText("Busted");
+                    }
+                    else
+                    {
+                        lblDealerScore.setText(String.format("%d", dealerScore));
+                    }
+
+                    gameController.stay();
                 }
                 else
                 {
-                    lblDealerScore.setText(String.format("%d", dealerScore));
+                    JOptionPane.showMessageDialog(frame, "Please make a bet and deal first!");
                 }
 
-                gameController.stay();
+            }
+        });
+
+        btnReset.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gameController.reset();
+
+                JComponent comp = (JComponent) e.getSource();
+                Window win = SwingUtilities.getWindowAncestor(comp);
+                win.dispose();
             }
         });
     }
@@ -190,6 +215,7 @@ public class BlackjackView {
         frame = new JFrame("Blackjack");
         frame.setContentPane(view.mainPanel);
         frame.setSize(650,520);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

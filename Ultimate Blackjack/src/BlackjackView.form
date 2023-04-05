@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="9" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="516" height="400"/>
+      <xy x="20" y="20" width="524" height="457"/>
     </constraints>
     <properties>
       <background color="-15036879"/>
@@ -112,47 +112,71 @@
       </hspacer>
       <component id="cfc69" class="javax.swing.JLabel" binding="lblDealerCard1">
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="96" height="144"/>
+            <preferred-size width="96" height="144"/>
+            <maximum-size width="96" height="144"/>
+          </grid>
         </constraints>
         <properties>
-          <text value="Label"/>
+          <text value=""/>
         </properties>
       </component>
       <component id="f43f" class="javax.swing.JLabel" binding="lblDealerCard2">
         <constraints>
-          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="96" height="144"/>
+            <preferred-size width="96" height="144"/>
+            <maximum-size width="96" height="144"/>
+          </grid>
         </constraints>
         <properties>
-          <text value="Label"/>
+          <text value=""/>
         </properties>
       </component>
       <component id="1ec6f" class="javax.swing.JLabel" binding="lblDealerCard3">
         <constraints>
-          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="96" height="144"/>
+            <preferred-size width="96" height="144"/>
+            <maximum-size width="96" height="144"/>
+          </grid>
         </constraints>
         <properties>
-          <text value="Label"/>
+          <text value=""/>
         </properties>
       </component>
       <component id="491cc" class="javax.swing.JLabel" binding="lblDealerCard4">
         <constraints>
-          <grid row="1" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="96" height="144"/>
+            <preferred-size width="96" height="144"/>
+            <maximum-size width="96" height="144"/>
+          </grid>
         </constraints>
         <properties>
-          <text value="Label"/>
+          <text value=""/>
         </properties>
       </component>
       <component id="747fe" class="javax.swing.JLabel" binding="lblDealerCard5">
         <constraints>
-          <grid row="1" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="96" height="144"/>
+            <preferred-size width="96" height="144"/>
+            <maximum-size width="96" height="144"/>
+          </grid>
         </constraints>
         <properties>
-          <text value="Label"/>
+          <text value=""/>
         </properties>
       </component>
       <component id="dd2b4" class="javax.swing.JLabel" binding="lblPlayerCard1">
         <constraints>
-          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="96" height="144"/>
+            <preferred-size width="96" height="144"/>
+            <maximum-size width="96" height="144"/>
+          </grid>
         </constraints>
         <properties>
           <text value=""/>
@@ -160,7 +184,11 @@
       </component>
       <component id="bb299" class="javax.swing.JLabel" binding="lblPlayerCard2">
         <constraints>
-          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="96" height="144"/>
+            <preferred-size width="96" height="144"/>
+            <maximum-size width="96" height="144"/>
+          </grid>
         </constraints>
         <properties>
           <text value=""/>
@@ -168,7 +196,11 @@
       </component>
       <component id="ba4d1" class="javax.swing.JLabel" binding="lblPlayerCard3">
         <constraints>
-          <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="96" height="144"/>
+            <preferred-size width="96" height="144"/>
+            <maximum-size width="96" height="144"/>
+          </grid>
         </constraints>
         <properties>
           <text value=""/>
@@ -176,7 +208,11 @@
       </component>
       <component id="d9ae0" class="javax.swing.JLabel" binding="lblPlayerCard4">
         <constraints>
-          <grid row="3" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="96" height="144"/>
+            <preferred-size width="96" height="144"/>
+            <maximum-size width="96" height="144"/>
+          </grid>
         </constraints>
         <properties>
           <text value=""/>
@@ -184,7 +220,11 @@
       </component>
       <component id="b59b3" class="javax.swing.JLabel" binding="lblPlayerCard5">
         <constraints>
-          <grid row="3" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="96" height="144"/>
+            <preferred-size width="96" height="144"/>
+            <maximum-size width="96" height="144"/>
+          </grid>
         </constraints>
         <properties>
           <text value=""/>

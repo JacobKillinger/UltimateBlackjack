@@ -1,9 +1,10 @@
 public class BlackjackController {
     private String card;
-    private Integer score;
-    private BlackjackView view;
-    public void startView(){
+    private Integer score = 7, balance = 1000; // added for testing purposes
 
+    public void startView(){
+        BlackjackView newView = new BlackjackView();
+        newView.initializeView(newView);
     }
     public  String hit(Boolean isPlayer){
         card = "clubs-7";
@@ -13,7 +14,13 @@ public class BlackjackController {
 
     public Integer getScore(Boolean isPlayer){
 
-        score = 1;
+        if(isPlayer == true){
+
+        }
+        else
+        {
+            score = score + 7;
+        }
         return score;
     }
 
@@ -23,5 +30,20 @@ public class BlackjackController {
 
     public void stay(){
 
+    }
+
+    public Integer getBalance()
+    {
+
+        return balance;
+    }
+
+    public void setBalance(Integer newBalance){
+        balance = newBalance;
+    }
+
+    public void reset(){
+
+        startView();
     }
 }
