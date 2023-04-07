@@ -1,33 +1,73 @@
 public class BlackjackController {
-    private String card;
-    private Integer score = 7, balance = 1000; // added values for testing view
-
+    private HandModel playerHand = new HandModel();
+    private HandModel dealerHand = new HandModel();
+    private Integer bet = 100, balance = 1000;
+    enum Outcome{
+        Win,
+        Loss,
+        Tie
+    }
     public void startView(){
-        BlackjackView newView = new BlackjackView(); //Creates the view window
+        BlackjackView newView = new BlackjackView(balance); //Creates the view window
         newView.initializeView(newView);
     }
     public  String hit(Boolean isPlayer){
-        card = "clubs-7"; //added for testing view
+        CardModel newCard = new CardModel();
+        if(isPlayer == true){
+            playerHand.addCard(newCard);
+        }
+        else{
+            dealerHand.addCard(newCard);
+        }
+
+        String card = String.format("%s-%d", newCard.getSuit(), newCard.getFaceValue());
         return card;
     }
 
     public Integer getScore(Boolean isPlayer){
 
         if(isPlayer == true){
-
+            return playerHand.getValue();
         }
         else
         {
-            score = score + 7; //added for testing view
+            return dealerHand.getValue();
         }
-        return score;
     }
 
     public void setBet(Integer betAmt){
-
+        bet = betAmt;
+        balance = balance - bet;
+    }
+    public Integer getBet(){
+        return bet;
     }
 
-    public void stay(){
+    public Outcome stay(){
+
+        if(isPlayerBust() == true){
+            return Outcome.Loss;
+        }
+        else if (isDealerBust() == true) {
+            balance += (2 * bet);
+            setBalance(balance);
+            return Outcome.Win;
+        }
+        else if (isPlayerWin() == true && isPlayerBust() == false){
+            balance += (2 * bet);
+            setBalance(balance);
+            return Outcome.Win;
+        }
+        else if(isDealerWin() == true && isDealerBust() == false){
+            setBalance(balance);
+            return Outcome.Loss;
+        }
+        else{
+            balance += bet;
+            setBalance(balance);
+            return Outcome.Tie;
+        }
+
 
     }
 
@@ -40,7 +80,36 @@ public class BlackjackController {
         balance = newBalance;
     }
 
+    public boolean isPlayerBust(){
+        if (playerHand.getValue() > 21){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isDealerBust(){
+        if(dealerHand.getValue() > 21){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isPlayerWin(){
+        if(playerHand.getValue() > dealerHand.getValue()){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isDealerWin(){
+        if(dealerHand.getValue() > playerHand.getValue()){
+            return true;
+        }
+        return false;
+    }
     public void reset(){ //Creates new view when called
         startView();
+        playerHand = new HandModel();
+        dealerHand = new HandModel();
     }
 }

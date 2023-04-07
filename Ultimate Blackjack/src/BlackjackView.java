@@ -2,8 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-
 public class BlackjackView {
     private JFrame frame;
     private JButton btnHit;
@@ -29,17 +27,17 @@ public class BlackjackView {
     private String dealersHiddenCard;
     private Integer counter = 0;
     private Integer Score, dealerScore, betAmt;
-
     private Boolean pressed;
-
-    public BlackjackView() {
-        BlackjackController gameController = new BlackjackController();
+    BlackjackController gameController = new BlackjackController();
+    public BlackjackView(Integer balance) {
+        gameController.setBalance(balance);
         lblBalance.setText("$" + gameController.getBalance().toString());
+        txtFieldBet.setText(gameController.getBet().toString());
         btnReset.setVisible(false);
 
         btnHit.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e){
                 ImageIcon icon = new ImageIcon();
                 pressed = true;
 
@@ -51,6 +49,7 @@ public class BlackjackView {
                             betAmt = Integer.parseInt(txtFieldBet.getText());
                             txtFieldBet.setEditable(false);
                             gameController.setBet(betAmt);
+                            lblBalance.setText(gameController.getBalance().toString());
                         }
                         catch (Exception exception){
                             JOptionPane.showMessageDialog(frame, "Enter a valid bet!");
@@ -161,7 +160,6 @@ public class BlackjackView {
                         dealerScore = gameController.getScore(false);
                         dealersIcon = new ImageIcon(cardPath);
 
-
                         switch (counter) // Applies card images to labels
                         {
                             case 0:
@@ -192,13 +190,32 @@ public class BlackjackView {
                         lblDealerScore.setText(String.format("%d", dealerScore));
                     }
 
-                    gameController.stay();
+                    Enum outcome = gameController.stay();
 
-                    int response = JOptionPane.showConfirmDialog(null, "Do you want to reset?", "Reset", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                    if(response == JOptionPane.YES_OPTION)
-                    {
-                        btnReset.doClick();
+                    if(outcome == BlackjackController.Outcome.Win){
+                        int response = JOptionPane.showConfirmDialog(null, "Congrats you won $" + betAmt.toString() + "!\nDo you want to reset?", "Reset", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        if(response == JOptionPane.YES_OPTION)
+                        {
+                            btnReset.doClick();
+                        }
                     }
+                    else if (outcome == BlackjackController.Outcome.Loss){
+                        int response = JOptionPane.showConfirmDialog(null, "Nice try, you lost!\nDo you want to reset?", "Reset", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        if(response == JOptionPane.YES_OPTION)
+                        {
+                            btnReset.doClick();
+                        }
+                    }
+                    else if (outcome == BlackjackController.Outcome.Tie){
+                        int response = JOptionPane.showConfirmDialog(null, "Tie, bet returned!\nDo you want to reset?", "Reset", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        if(response == JOptionPane.YES_OPTION)
+                        {
+                            btnReset.doClick();
+                        }
+                    }
+
+
+
                 }
                 else
                 {
@@ -221,7 +238,8 @@ public class BlackjackView {
     }
 
     public void initializeView(BlackjackView view){
-        view = new BlackjackView();
+        Integer balance = gameController.getBalance();
+        view = new BlackjackView(balance);
         frame = new JFrame("Blackjack");
         frame.setContentPane(view.mainPanel);
         frame.setSize(650,520);
