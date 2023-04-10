@@ -8,9 +8,11 @@ public class CardModel {
 
 
     public CardModel(){
+
         this.r = new Random();
         int randomSuit = r.nextInt(4);
         int randomFaceValue = r.nextInt(13);
+
         if(randomSuit == 0){
             suit = "hearts";
         }
@@ -88,6 +90,10 @@ public class CardModel {
 
     public String getSuit(){
         return this.suit;
+    }
+
+    public void setAceValue(){
+        this.value = 1;
     }
 
 }

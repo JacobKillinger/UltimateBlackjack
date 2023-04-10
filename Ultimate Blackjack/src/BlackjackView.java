@@ -35,106 +35,116 @@ public class BlackjackView {
         txtFieldBet.setText(gameController.getBet().toString());
         btnReset.setVisible(false);
 
-        btnHit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e){
-                ImageIcon icon = new ImageIcon();
-                pressed = true;
+        btnHit.addActionListener(e -> {
+            ImageIcon icon;
+            pressed = true;
 
-                while(pressed == true){
-                    btnHit.setEnabled(false);
-                    if (counter == 0){
-                        //Bets
-                        try {
-                            betAmt = Integer.parseInt(txtFieldBet.getText());
-                            txtFieldBet.setEditable(false);
-                            gameController.setBet(betAmt);
-                            lblBalance.setText(gameController.getBalance().toString());
-                        }
-                        catch (Exception exception){
-                            JOptionPane.showMessageDialog(frame, "Enter a valid bet!");
-                            txtFieldBet.setText("");
-                            pressed = false;
-                            break;
-                        }
-
-                        //Deals hand for player
-                        card = gameController.hit(true); //hit functions returns a string "suit-value"
-                        cardPath = String.format("src/Playing Cards/card-%s.png", card);
-                        icon = new ImageIcon(cardPath);
-                        lblPlayerCard1.setIcon(icon);
-
-                        card = gameController.hit(true);
-                        cardPath = String.format("src/Playing Cards/card-%s.png", card);
-                        icon = new ImageIcon(cardPath);
-                        lblPlayerCard2.setIcon(icon);
-
-                        counter++;
-
-                        //Deals hand for dealer
-
-                        dealersHiddenCard = gameController.hit(false); //saves dealers hidden card to be revealed when stay is called
-                        cardPath = String.format("src/Playing Cards/card-back1.png");
-                        icon = new ImageIcon(cardPath);
-                        lblDealerCard1.setIcon(icon);
-
-                        card = gameController.hit(false);
-                        cardPath = String.format("src/Playing Cards/card-%s.png", card);
-                        icon = new ImageIcon(cardPath);
-                        lblDealerCard2.setIcon(icon);
-
-                        btnHit.setText("Hit");
-                        Score = gameController.getScore(true); //Calls getPlayerScore which returns an int of their current score
-                        lblPlayerScore.setText(String.format("%d",Score));
-
-                        pressed = false;
+            while(pressed){
+                btnHit.setEnabled(false);
+                if (counter == 0){
+                    //Bets
+                    try {
+                        betAmt = Integer.parseInt(txtFieldBet.getText());
+                        txtFieldBet.setEditable(false);
+                        lblBalance.setText(gameController.getBalance().toString());
                     }
-                    else{
-                        card = gameController.hit(true);// Returns "suit-value" as string because card names are variations to "card-clubs-1.png"
-                        Score = gameController.getScore(true);
+                    catch (Exception exception){
+                        JOptionPane.showMessageDialog(frame, "Enter a valid bet!");
+                        txtFieldBet.setText("");
+                        pressed = false;
+                        break;
+                    }
 
-                        cardPath = String.format("src/Playing Cards/card-%s.png", card);
-                        icon = new ImageIcon(cardPath);
+                    if(betAmt > gameController.getBalance()){
+                        JOptionPane.showMessageDialog(frame, "Enter a valid bet!");
+                        pressed = false;
+                        break;
+                    }
 
-                        switch (counter) // Applies card images to labels
-                        {
-                            case 1:
-                                lblPlayerCard3.setIcon(icon);
-                                counter++;
-                                break;
+                    gameController.setBet(betAmt);
 
-                            case 2:
-                                lblPlayerCard4.setIcon(icon);
-                                counter++;
-                                break;
+                    //Deals hand for player
+                    card = gameController.hit(true); //hit functions returns a string "suit-value"
+                    cardPath = String.format("src/Playing Cards/card-%s.png", card);
+                    icon = new ImageIcon(cardPath);
+                    lblPlayerCard1.setIcon(icon);
 
-                            case 3:
-                                lblPlayerCard5.setIcon(icon);
-                                counter++;
-                                break;
+                    card = gameController.hit(true);
+                    cardPath = String.format("src/Playing Cards/card-%s.png", card);
+                    icon = new ImageIcon(cardPath);
+                    lblPlayerCard2.setIcon(icon);
 
-                            default:
-                                counter = 0;
-                        }
-                        if(Score > 21)
-                        {
+                    counter++;
+
+                    //Deals hand for dealer
+
+                    dealersHiddenCard = gameController.hit(false); //saves dealers hidden card to be revealed when stay is called
+                    cardPath = String.format("src/Playing Cards/card-back1.png");
+                    icon = new ImageIcon(cardPath);
+                    lblDealerCard1.setIcon(icon);
+
+                    card = gameController.hit(false);
+                    cardPath = String.format("src/Playing Cards/card-%s.png", card);
+                    icon = new ImageIcon(cardPath);
+                    lblDealerCard2.setIcon(icon);
+
+                    btnHit.setText("Hit");
+                    Score = gameController.getScore(true); //Calls getPlayerScore which returns an int of their current score
+                    lblPlayerScore.setText(String.format("%d",Score));
+
+                    pressed = false;
+                }
+                else{
+                    card = gameController.hit(true);// Returns "suit-value" as string because card names are variations to "card-clubs-1.png"
+                    Score = gameController.getScore(true);
+
+                    cardPath = String.format("src/Playing Cards/card-%s.png", card);
+                    icon = new ImageIcon(cardPath);
+
+                    switch (counter) // Applies card images to labels
+                    {
+                        case 1:
+                            lblPlayerCard3.setIcon(icon);
+                            counter++;
+                            break;
+
+                        case 2:
+                            lblPlayerCard4.setIcon(icon);
+                            counter++;
+                            break;
+
+                        case 3:
+                            lblPlayerCard5.setIcon(icon);
+                            counter++;
+                            break;
+
+                        default:
+                            counter = 0;
+                    }
+                    if(Score > 21)
+                    {
+                        gameController.containsAce(true);
+
+                        if(gameController.isPlayerBust()){
                             lblPlayerScore.setText("Busted");
                             btnStay.doClick();
                         }
-                        if(Score == 21)
-                        {
-                            lblPlayerScore.setText(String.format("%d", Score));
-                            btnStay.doClick();
-                        }
-                        else
-                        {
-                            lblPlayerScore.setText(String.format("%d", Score));
-                        }
-                        pressed = false;
+                        Score = gameController.getScore(true);
+                        lblPlayerScore.setText(Score.toString());
                     }
+                    if(Score == 21)
+                    {
+                        lblPlayerScore.setText(String.format("%d", Score));
+                        btnStay.doClick();
+                    }
+                    else
+                    {
+                        lblPlayerScore.setText(String.format("%d", Score));
+                    }
+                    pressed = false;
                 }
-                btnHit.setEnabled(true);
             }
+            btnHit.setEnabled(true);
         });
 
         btnStay.addActionListener(new ActionListener() {
@@ -152,6 +162,12 @@ public class BlackjackView {
 
                     dealerScore = gameController.getScore(false);
                     counter = 0;
+
+                    if(dealerScore > 21){
+                        gameController.containsAce(false);
+                        dealerScore = gameController.getScore(false);
+                        lblDealerScore.setText(Score.toString());
+                    }
 
                     while(dealerScore < 17)   //calls the hit function for dealer whenever the dealer score is less than 16
                     {
@@ -179,6 +195,11 @@ public class BlackjackView {
 
                             default:
                                 counter = 0;
+                        }
+                        if(dealerScore > 21){
+                            gameController.containsAce(false);
+                            dealerScore = gameController.getScore(false);
+                            lblDealerScore.setText(Score.toString());
                         }
                     }
 
@@ -243,6 +264,7 @@ public class BlackjackView {
         frame = new JFrame("Blackjack");
         frame.setContentPane(view.mainPanel);
         frame.setSize(650,520);
+        frame.setMinimumSize(frame.getSize());
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

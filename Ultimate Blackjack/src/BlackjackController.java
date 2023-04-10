@@ -67,8 +67,6 @@ public class BlackjackController {
             setBalance(balance);
             return Outcome.Tie;
         }
-
-
     }
 
     public Integer getBalance()
@@ -106,6 +104,16 @@ public class BlackjackController {
             return true;
         }
         return false;
+    }
+
+    public void containsAce(Boolean isPlayer){
+        if(isPlayer && playerHand.containsAce()){
+            playerHand.changeAce();
+        }
+        else if(isPlayer==false && dealerHand.containsAce()) {
+            dealerHand.changeAce();
+        }
+
     }
     public void reset(){ //Creates new view when called
         startView();
